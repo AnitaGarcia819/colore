@@ -97,7 +97,7 @@ public class HeapTree {
         }
         System.out.println();
     }
-    public static void add(int nodeValue, int frequency, String color){
+    public static void add(int nodeValue, int frequency, int color){
 
         heap.add(new Node(nodeValue, frequency, color));
         SIZE++;

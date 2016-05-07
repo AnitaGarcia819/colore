@@ -10,29 +10,35 @@
         android:theme="@style/AppTheme">
         <activity
             android:name=".Instructions"
+            android:configChanges="keyboardHidden|orientation|screenSize"
             android:label="@string/app_name"
-            android:theme="@style/AppTheme.NoActionBar">
-
-        </activity>
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
         <activity
             android:name=".Level"
+            android:configChanges="keyboardHidden|orientation|screenSize"
             android:label="@string/title_activity_level"
+            android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".Board"
+            android:configChanges="keyboardHidden|orientation|screenSize"
             android:label="@string/title_activity_board"
+            android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".Splash"
+            android:configChanges="keyboardHidden|orientation|screenSize"
             android:label="@string/title_activity_splash"
+            android:screenOrientation="portrait"
             android:theme="@style/SplashTheme">
-
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".GameOver"></activity>
     </application>
 
 </manifest>

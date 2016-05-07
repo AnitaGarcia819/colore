@@ -36,6 +36,7 @@ public class Level extends AppCompatActivity {
         heapTree = new HeapTree();
         heapTree.updateSize(numOfCommands);
 
+        /*
         // Sends data to Board Activity
         i = new Intent(this, Board.class);
         extraInfo = new Bundle();
@@ -46,8 +47,16 @@ public class Level extends AppCompatActivity {
         displayCommandList();
         //TO DO: init Hashmap with default array list
 
-
+        */
     }
+
+    public void startButton(View v) {
+        Intent intent = new Intent(this, Board.class);
+        startActivity(intent);
+        finish();
+    }
+    /*
+
     public void generateTileFrequency() {
         if(tileFrequency.get(numOfCommands) == null){
             tileFrequency.put(numOfCommands, new ArrayList<Integer>());
@@ -61,7 +70,7 @@ public class Level extends AppCompatActivity {
         }
     }
     public void initializeCommandList(){
-        String color;
+        int color;
         int priorityValue;
         int frequency;
 
@@ -497,11 +506,12 @@ public class Level extends AppCompatActivity {
                 command_button_6.setVisibility(View.VISIBLE);
                 command_button_7.setVisibility(View.VISIBLE);
                 command_button_8.setVisibility(View.VISIBLE);
+
                 break;*/
             //TODO: GAME OVER?
 
-        }
-    }
+        //}
+
     public void displayLevel(){
         TextView levelTextView = (TextView) findViewById(R.id.level_text);
         levelTextView.setText("Level: " + currentLevel);
