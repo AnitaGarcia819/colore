@@ -44,10 +44,11 @@
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="PLAY GAIN"
+        android:text="PLAY AGAIN"
         android:id="@+id/play_button"
         android:layout_below="@+id/score_text"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="62dp" />
+        android:layout_marginTop="62dp"
+        android:onClick="playAgain"/>
 
 </RelativeLayout>
