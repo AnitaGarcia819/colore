@@ -1,7 +1,10 @@
 package edu.csumb.colore.colore;
 
+import java.util.ArrayList;
+
 import android.graphics.Color;
 import android.graphics.PorterDuff;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -21,12 +24,17 @@ import java.util.Random;
 import java.util.StringTokenizer;
 
 public class Board extends AppCompatActivity {
-
+    HeapTree colorList;
     ArrayList<Integer> used = new ArrayList<>();
     ArrayList<Integer> board = new ArrayList<>();
     //HashMap<String, ArrayList<Integer>> map = new HashMap<>();
 
     ArrayList<Node> heap = new ArrayList<>();
+
+    private Intent i;
+    private Bundle extraInfo = new Bundle();
+    private int CURRENT_LEVEL;
+    private int NUM_OF_COMMANDS;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,27 +43,39 @@ public class Board extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+
+        Bundle extras = getIntent().getExtras();
+        if(extras != null) {
+            CURRENT_LEVEL  = extras.getInt("CURRENT_LEVEL");
+            NUM_OF_COMMANDS =  extras.getInt("NUM_OF_COMMANDS");
+        }
+        Log.d("onCreate", "CURRENT LEVEL (BOARD)"+ CURRENT_LEVEL +
+        "NUM_OF_COMMANDS" + NUM_OF_COMMANDS);
+        colorList = new HeapTree(NUM_OF_COMMANDS);
+
+
+        Log.d("DISPLAY: HEAP", "HEAP");
+        colorList.display();
+
+       Log.d("COLOR_LIST:" , String.valueOf(colorList));
+        Log.d("NUM_COMMANDS: " , String.valueOf(NUM_OF_COMMANDS));
+
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+               newLevel();
+
                 Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
                         .setAction("Action", null).show();
             }
         });
-
+    /*
         for(int i =0 ; i < 10; i++) {
             board.add(0);
         }
 
-        Node n = new Node(1, 2, 7);
-        heap.add(n);
-        n = new Node(2, 2, 5);
-        heap.add(n);
-        n = new Node(3, 2,2);
-        heap.add(n);
-        n = new Node(4, 3, 4);
-        heap.add(n);
+
         Log.d("HEAP: " , String.valueOf(heap.get(1).getFrequency()));
         int position;
         for(int node = 0; node < heap.size(); node++) {
@@ -74,7 +94,19 @@ public class Board extends AppCompatActivity {
             }
         }
         Log.d("Used: " , String.valueOf(used));
-        Log.d("COLORS: ", String.valueOf(board));
+        Log.d("COLORS: ", String.valueOf(board));*/
+    }
+
+    public void newLevel(){
+        // Check if game is over
+
+        // Sends data to Board Activity
+        Intent i = new Intent(getBaseContext(), Level.class);
+        extraInfo = new Bundle();
+        extraInfo.putInt("NEW_LEVEL", CURRENT_LEVEL + 1);
+        extraInfo.putInt("NEW_COMMANDS", NUM_OF_COMMANDS + 1);
+        i.putExtras(extraInfo);
+        startActivity(i);
     }
 
     public void buttonColor(Button b, int color){

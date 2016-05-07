@@ -34,7 +34,8 @@
         android:backgroundTint="#f927fa3c"
         android:capitalize="words"
         android:clickable="true"
-        android:onClick="startButton" />
+        android:onClick="startGame" />
+
 
     <Button
         android:layout_width="200dp"

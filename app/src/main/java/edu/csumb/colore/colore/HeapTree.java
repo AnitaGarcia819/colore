@@ -3,6 +3,8 @@ package edu.csumb.colore.colore;
 /**
  * Created by anitagarcia on 5/5/16.
  */
+import android.util.Log;
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
@@ -28,8 +30,13 @@ import java.util.*;
 
 public class HeapTree {
 
-    private static ArrayList<Node> heap = new ArrayList<Node>();
+    public static ArrayList<Node> heap = new ArrayList<Node>();
     private static int SIZE = 0;
+    public HeapTree(int numOfNodes){
+        for(int i = 0; i < numOfNodes; i++){
+            heap.add(new Node());
+        }
+    }
 
     public static boolean isHeap(){
         for(int i = SIZE/2; i > 0 ; i--){
@@ -49,9 +56,7 @@ public class HeapTree {
         }
         return true;
     }
-    public HeapTree(){
 
-    }
 
     public static void heapify(){
         while(!isHeap()){
@@ -94,12 +99,18 @@ public class HeapTree {
     public static void display(){
         for(int i = 1; i < heap.size(); i++){
             System.out.print(heap.get(i));
+            Log.d("Heap", String.valueOf(heap.get(i)));
         }
         System.out.println();
     }
-    public static void add(int nodeValue, int frequency, int color){
 
-        heap.add(new Node(nodeValue, frequency, color));
+    public static void add(int priorityVaule, int color, int frequency){
+
+        heap.add(new Node(priorityVaule, color, frequency));
+        // Add colors into stack
+        for(int i = 0; i < frequency; i++){
+            heap.get(SIZE).addColor(color);
+        }
         SIZE++;
         heapify();
     }
@@ -116,5 +127,8 @@ public class HeapTree {
     }
     public static void updateSize(int newSize){
         SIZE = newSize;
+    }
+    public static void getFrequency(){
+
     }
 }
