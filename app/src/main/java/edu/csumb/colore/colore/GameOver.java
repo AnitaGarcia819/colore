@@ -28,6 +28,8 @@ public class GameOver extends AppCompatActivity {
     public void setLevel() {
         TextView t = (TextView) findViewById(R.id.level_text);
         t.setText("LEVEL: " + gameLevel);
+        t = (TextView) findViewById(R.id.score_text);
+        t.setText("SCORE: " + points);
     }
     public void playAgain(View v){
         Intent i = new Intent(getBaseContext(), Level.class);
