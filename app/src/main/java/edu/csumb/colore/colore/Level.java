@@ -40,32 +40,42 @@ public class Level extends AppCompatActivity {
             numOfCommands = extras.getInt("NEW_COMMANDS");
         }
 
-        Log.d("onCreate", "CURRENT LEVEL: (LEVEL) " + currentLevel + " NUM OF COMMANDS: " + numOfCommands);
-        //Log.d("onCreate", "before " + tileFrequency.size() + " | " + commandList.size());
+        Log.d("onCreate", "CURRENT LEVEL: (LEVEL) " + currentLevel
+                + " NUM OF COMMANDS: " + numOfCommands
+                + "THRESHOLD: " + THRESHOLD);
 
-        // Clear tileFrequency
         tileFrequency = new HashMap<Integer, ArrayList<Integer>>();
         // Clear commandList
         commandList = new ArrayList<Integer>();
-        Log.d("onCreate", "after " + tileFrequency.size() + " | " + commandList.size());
+        //Log.d("onCreate", "after " + tileFrequency.size() + " | " + commandList.size());
 
         heapTree = new HeapTree(numOfCommands);
         //heapTree.updateSize(numOfCommands);
+        Log.d("onCreate", "after " + tileFrequency.size() + " | " + commandList.size()
+                + " | " + commandList.size());
 
         initializeCommandList();
-        displayCommandList();
+        //displayCommandList();
         //TO DO: init Hashmap with default array list
 
 
     }
     public void generateTileFrequency() {
+        int total = 0;
+        boolean keepLooking = false;
         if(tileFrequency.get(numOfCommands) == null){
             tileFrequency.put(numOfCommands, new ArrayList<Integer>());
         }
-        int tileFrequencyNumber = getRandomTileNumber();
-        for (int i = 0; i < numOfCommands; i++) {
-            while (tileFrequency.get(numOfCommands).contains(tileFrequencyNumber)) {
+        tileFrequency.get(numOfCommands).add(null);
+        int tileFrequencyNumber;
+
+        for (int i = 1; i <= numOfCommands; i++) {
+            tileFrequencyNumber = getRandomTileNumber();
+            total += tileFrequencyNumber;
+            while(total > 9){
+                total -= tileFrequencyNumber;
                 tileFrequencyNumber = getRandomTileNumber();
+                total += tileFrequencyNumber;
             }
             tileFrequency.get(numOfCommands).add(tileFrequencyNumber);
         }
@@ -77,21 +87,23 @@ public class Level extends AppCompatActivity {
 
         generateTileFrequency();
         // Select random color && select # of values
-
-        for(int i = 0; i < numOfCommands; i++){
+        commandList.add(null);
+        for(int i = 1; i <= numOfCommands; i++){
             color = getRandomColor();
             while(commandList.contains(color)){
                 color = getRandomColor();
             }
+           // Log.d("COLOR: ", i + " " + color);
+
             commandList.add(color);
-            Log.d("COMMAND ", " " + i + commandList.get(i));
+           // Log.d("COMMAND ", " " + i + commandList.get(i) + "SIZE: " + commandList.size());
            // color = getRandomColor();
             frequency = tileFrequency.get(numOfCommands).get(i);
-            Log.d("DATA", i + " " + frequency + " " + color);
-            heapTree.add(i, frequency, color);
+           // Log.d("DATA", i + " " + frequency + " " + color);
+            heapTree.add(i, color, frequency);
             displayColor(i, color);
         }
-
+        heapTree.display();
     }
     public int getRandomColor(){
         Random randomGenerator = new Random();
@@ -140,468 +152,52 @@ public class Level extends AppCompatActivity {
             case 9:
                 b.setBackgroundColor(Color.GRAY);
                 break;
+            default:
+                b.setBackgroundColor(Color.WHITE);
         }
     }
     public Button getButton(int button_position){
-
+        Button b = (Button) findViewById(R.id.command_button_4);
         switch(button_position){
-            case 0:
+            case 1:
                     return (Button) findViewById(R.id.command_button_0);
 
-            case 1:
+            case 2:
                     return (Button) findViewById(R.id.command_button_1);
 
-            case 2:
+            case 3:
                     return (Button) findViewById(R.id.command_button_2);
 
-            case 3:
+            case 4:
                     return (Button) findViewById(R.id.command_button_3);
 
-            case 4:
+            case 5:
+                    b = (Button) findViewById(R.id.command_button_4);
+                    b.setVisibility(View.VISIBLE);
                     return (Button) findViewById(R.id.command_button_4);
 
-            case 5:
+            case 6:
+                    b = (Button) findViewById(R.id.command_button_5);
+                    b.setVisibility(View.VISIBLE);
                     return (Button) findViewById(R.id.command_button_5);
 
-            case 6:
+            case 7:
+                    b = (Button) findViewById(R.id.command_button_6);
+                    b.setVisibility(View.VISIBLE);
                     return (Button) findViewById(R.id.command_button_6);
 
-            case 7:
+            case 8:
+                    b = (Button) findViewById(R.id.command_button_7);
+                    b.setVisibility(View.VISIBLE);
                     return (Button) findViewById(R.id.command_button_7);
 
-            case 8:
+            case 9:
+                    b = (Button) findViewById(R.id.command_button_8);
+                    b.setVisibility(View.VISIBLE);
                     return (Button) findViewById(R.id.command_button_8);
 
             default:
                 return null;
-        }
-    }
-
-    public void displayCommandList(){
-        Button command_button_0 = (Button) findViewById(R.id.command_button_0);
-        Button command_button_1 = (Button) findViewById(R.id.command_button_1);
-        Button command_button_2 = (Button) findViewById(R.id.command_button_2);
-
-        Button command_button_3 = (Button) findViewById(R.id.command_button_3);
-        Button command_button_4 = (Button) findViewById(R.id.command_button_4);
-        Button command_button_5 = (Button) findViewById(R.id.command_button_5);
-        Button command_button_6 = (Button) findViewById(R.id.command_button_6);
-        Button command_button_7 = (Button) findViewById(R.id.command_button_7);
-        Button command_button_8 = (Button) findViewById(R.id.command_button_8);
-
-        switch(currentLevel){
-            case 1:
-                switch(commandList.get(1)){
-                    case 0:
-                        command_button_1.setBackgroundColor(Color.YELLOW);
-                        break;
-                    case 1:
-                        command_button_1.setBackgroundColor(Color.RED);
-                        break;
-                    case 2:
-                        command_button_1.setBackgroundColor(Color.MAGENTA);
-                        break;
-                    case 3:
-                        command_button_1.setBackgroundColor(Color.LTGRAY);
-                        break;
-                    case 4:
-                        command_button_1.setBackgroundColor(Color.GREEN);
-                        break;
-                    case 5:
-                        command_button_1.setBackgroundColor(Color.CYAN);
-                        break;
-                    case 6:
-                        command_button_1.setBackgroundColor(Color.BLUE);
-                    case 7:
-                        command_button_1.setBackgroundColor(Color.BLACK);
-                    case 8:
-                        command_button_1.setBackgroundColor(Color.GRAY);
-                        break;
-                }
-                switch(commandList.get(2)){
-                    case 0:
-                        command_button_2.setBackgroundColor(Color.YELLOW);
-                        break;
-                    case 1:
-                        command_button_2.setBackgroundColor(Color.RED);
-                        break;
-                    case 2:
-                        command_button_2.setBackgroundColor(Color.MAGENTA);
-                        break;
-                    case 3:
-                        command_button_2.setBackgroundColor(Color.LTGRAY);
-                        break;
-                    case 4:
-                        command_button_2.setBackgroundColor(Color.GREEN);
-                        break;
-                    case 5:
-                        command_button_2.setBackgroundColor(Color.CYAN);
-                        break;
-                    case 6:
-                        command_button_2.setBackgroundColor(Color.BLUE);
-                    case 7:
-                        command_button_2.setBackgroundColor(Color.BLACK);
-                    case 8:
-                        command_button_2.setBackgroundColor(Color.GRAY);
-                        break;
-                }
-                break;
-            case 2:
-                switch(commandList.get(0)){
-                    case 0:
-                        command_button_0.setBackgroundColor(Color.YELLOW);
-                        break;
-                    case 1:
-                        command_button_0.setBackgroundColor(Color.RED);
-                        break;
-                    case 2:
-                        command_button_0.setBackgroundColor(Color.MAGENTA);
-                        break;
-                    case 3:
-                        command_button_0.setBackgroundColor(Color.LTGRAY);
-                        break;
-                    case 4:
-                        command_button_0.setBackgroundColor(Color.GREEN);
-                        break;
-                    case 5:
-                        command_button_0.setBackgroundColor(Color.CYAN);
-                        break;
-                    case 6:
-                        command_button_0.setBackgroundColor(Color.BLUE);
-                    case 7:
-                        command_button_0.setBackgroundColor(Color.BLACK);
-                    case 8:
-                        command_button_0.setBackgroundColor(Color.GRAY);
-                        break;
-                }
-                switch(commandList.get(1)){
-                    case 0:
-                        command_button_1.setBackgroundColor(Color.YELLOW);
-                        break;
-                    case 1:
-                        command_button_1.setBackgroundColor(Color.RED);
-                        break;
-                    case 2:
-                        command_button_1.setBackgroundColor(Color.MAGENTA);
-                        break;
-                    case 3:
-                        command_button_1.setBackgroundColor(Color.LTGRAY);
-                        break;
-                    case 4:
-                        command_button_1.setBackgroundColor(Color.GREEN);
-                        break;
-                    case 5:
-                        command_button_1.setBackgroundColor(Color.CYAN);
-                        break;
-                    case 6:
-                        command_button_1.setBackgroundColor(Color.BLUE);
-                    case 7:
-                        command_button_1.setBackgroundColor(Color.BLACK);
-                    case 8:
-                        command_button_1.setBackgroundColor(Color.GRAY);
-                        break;
-                }
-                switch(commandList.get(2)){
-                    case 0:
-                        command_button_2.setBackgroundColor(Color.YELLOW);
-                        break;
-                    case 1:
-                        command_button_2.setBackgroundColor(Color.RED);
-                        break;
-                    case 2:
-                        command_button_2.setBackgroundColor(Color.MAGENTA);
-                        break;
-                    case 3:
-                        command_button_2.setBackgroundColor(Color.LTGRAY);
-                        break;
-                    case 4:
-                        command_button_2.setBackgroundColor(Color.GREEN);
-                        break;
-                    case 5:
-                        command_button_2.setBackgroundColor(Color.CYAN);
-                        break;
-                    case 6:
-                        command_button_2.setBackgroundColor(Color.BLUE);
-                    case 7:
-                        command_button_2.setBackgroundColor(Color.BLACK);
-                    case 8:
-                        command_button_2.setBackgroundColor(Color.GRAY);
-                        break;
-                }
-                switch(commandList.get(3)){
-                    case 0:
-                        command_button_3.setBackgroundColor(Color.YELLOW);
-                        break;
-                    case 1:
-                        command_button_3.setBackgroundColor(Color.RED);
-                        break;
-                    case 2:
-                        command_button_3.setBackgroundColor(Color.MAGENTA);
-                        break;
-                    case 3:
-                        command_button_3.setBackgroundColor(Color.LTGRAY);
-                        break;
-                    case 4:
-                        command_button_3.setBackgroundColor(Color.GREEN);
-                        break;
-                    case 5:
-                        command_button_3.setBackgroundColor(Color.CYAN);
-                        break;
-                    case 6:
-                        command_button_3.setBackgroundColor(Color.BLUE);
-                    case 7:
-                        command_button_3.setBackgroundColor(Color.BLACK);
-                    case 8:
-                        command_button_3.setBackgroundColor(Color.GRAY);
-                        break;
-                }
-
-                command_button_3.setVisibility(View.VISIBLE);
-
-                break;
-            case 3:
-                switch(commandList.get(0)){
-                    case 0:
-                        command_button_2.setBackgroundColor(Color.YELLOW);
-                        break;
-                    case 1:
-                        command_button_2.setBackgroundColor(Color.RED);
-                        break;
-                    case 2:
-                        command_button_2.setBackgroundColor(Color.MAGENTA);
-                        break;
-                    case 3:
-                        command_button_2.setBackgroundColor(Color.LTGRAY);
-                        break;
-                    case 4:
-                        command_button_2.setBackgroundColor(Color.GREEN);
-                        break;
-                    case 5:
-                        command_button_2.setBackgroundColor(Color.CYAN);
-                        break;
-                    case 6:
-                        command_button_2.setBackgroundColor(Color.BLUE);
-                    case 7:
-                        command_button_2.setBackgroundColor(Color.BLACK);
-                    case 8:
-                        command_button_2.setBackgroundColor(Color.GRAY);
-                        break;
-                }
-                switch(commandList.get(1)){
-                    case 0:
-                        command_button_2.setBackgroundColor(Color.YELLOW);
-                        break;
-                    case 1:
-                        command_button_2.setBackgroundColor(Color.RED);
-                        break;
-                    case 2:
-                        command_button_2.setBackgroundColor(Color.MAGENTA);
-                        break;
-                    case 3:
-                        command_button_2.setBackgroundColor(Color.LTGRAY);
-                        break;
-                    case 4:
-                        command_button_2.setBackgroundColor(Color.GREEN);
-                        break;
-                    case 5:
-                        command_button_2.setBackgroundColor(Color.CYAN);
-                        break;
-                    case 6:
-                        command_button_2.setBackgroundColor(Color.BLUE);
-                    case 7:
-                        command_button_2.setBackgroundColor(Color.BLACK);
-                    case 8:
-                        command_button_2.setBackgroundColor(Color.GRAY);
-                        break;
-                }
-                switch(commandList.get(2)){
-                    case 0:
-                        command_button_2.setBackgroundColor(Color.YELLOW);
-                        break;
-                    case 1:
-                        command_button_2.setBackgroundColor(Color.RED);
-                        break;
-                    case 2:
-                        command_button_2.setBackgroundColor(Color.MAGENTA);
-                        break;
-                    case 3:
-                        command_button_2.setBackgroundColor(Color.LTGRAY);
-                        break;
-                    case 4:
-                        command_button_2.setBackgroundColor(Color.GREEN);
-                        break;
-                    case 5:
-                        command_button_2.setBackgroundColor(Color.CYAN);
-                        break;
-                    case 6:
-                        command_button_2.setBackgroundColor(Color.BLUE);
-                    case 7:
-                        command_button_2.setBackgroundColor(Color.BLACK);
-                    case 8:
-                        command_button_2.setBackgroundColor(Color.GRAY);
-                        break;
-                }
-                switch(commandList.get(3)){
-                    case 0:
-                        command_button_2.setBackgroundColor(Color.YELLOW);
-                        break;
-                    case 1:
-                        command_button_2.setBackgroundColor(Color.RED);
-                        break;
-                    case 2:
-                        command_button_2.setBackgroundColor(Color.MAGENTA);
-                        break;
-                    case 3:
-                        command_button_2.setBackgroundColor(Color.LTGRAY);
-                        break;
-                    case 4:
-                        command_button_2.setBackgroundColor(Color.GREEN);
-                        break;
-                    case 5:
-                        command_button_2.setBackgroundColor(Color.CYAN);
-                        break;
-                    case 6:
-                        command_button_2.setBackgroundColor(Color.BLUE);
-                    case 7:
-                        command_button_2.setBackgroundColor(Color.BLACK);
-                    case 8:
-                        command_button_2.setBackgroundColor(Color.GRAY);
-                        break;
-                }
-                switch(commandList.get(4)){
-                    case 0:
-                        command_button_2.setBackgroundColor(Color.YELLOW);
-                        break;
-                    case 1:
-                        command_button_2.setBackgroundColor(Color.RED);
-                        break;
-                    case 2:
-                        command_button_2.setBackgroundColor(Color.MAGENTA);
-                        break;
-                    case 3:
-                        command_button_2.setBackgroundColor(Color.LTGRAY);
-                        break;
-                    case 4:
-                        command_button_2.setBackgroundColor(Color.GREEN);
-                        break;
-                    case 5:
-                        command_button_2.setBackgroundColor(Color.CYAN);
-                        break;
-                    case 6:
-                        command_button_2.setBackgroundColor(Color.BLUE);
-                    case 7:
-                        command_button_2.setBackgroundColor(Color.BLACK);
-                    case 8:
-                        command_button_2.setBackgroundColor(Color.GRAY);
-                        break;
-                }
-                command_button_3.setVisibility(View.VISIBLE);
-                command_button_4.setVisibility(View.VISIBLE);
-                break;
-           /* case 4:
-                switch(commandList.get(0)){
-
-                }
-                switch(commandList.get(1)){
-
-                }
-                switch(commandList.get(2)){
-
-                }
-                switch(commandList.get(3)){
-
-                }
-                switch(commandList.get(4)){
-
-                }
-                switch(commandList.get(5)){
-
-                }
-                command_button_3.setVisibility(View.VISIBLE);
-                command_button_4.setVisibility(View.VISIBLE);
-                command_button_5.setVisibility(View.VISIBLE);
-                break;
-            case 5:
-                switch(commandList.get(0)){
-
-                }
-                switch(commandList.get(1)){
-
-                }
-                switch(commandList.get(2)){
-
-                }
-                switch(commandList.get(3)){
-
-                }
-                switch(commandList.get(4)){
-
-                }
-                switch(commandList.get(5)){
-
-                }
-                command_button_3.setVisibility(View.VISIBLE);
-                command_button_4.setVisibility(View.VISIBLE);
-                command_button_5.setVisibility(View.VISIBLE);
-                command_button_6.setVisibility(View.VISIBLE);
-                break;
-            case 6:
-                command_button_3.setVisibility(View.VISIBLE);
-                command_button_4.setVisibility(View.VISIBLE);
-                command_button_5.setVisibility(View.VISIBLE);
-                command_button_6.setVisibility(View.VISIBLE);
-                command_button_7.setVisibility(View.VISIBLE);
-                break;
-            case 7:
-                command_button_3.setVisibility(View.VISIBLE);
-                command_button_4.setVisibility(View.VISIBLE);
-                command_button_5.setVisibility(View.VISIBLE);
-                command_button_6.setVisibility(View.VISIBLE);
-                command_button_7.setVisibility(View.VISIBLE);
-                command_button_8.setVisibility(View.VISIBLE);
-                break;*/
-            //TODO: GAME OVER?
-
-        }
-    }
-    public void set(Button command_button, int color){
-
-        switch(color){
-
-            case 1:
-                command_button = (Button) findViewById(R.id.command_button_0);
-                command_button.setBackgroundColor(Color.YELLOW);
-                break;
-            case 2:
-                command_button = (Button) findViewById(R.id.command_button_1);
-                command_button.setBackgroundColor(Color.RED);
-                break;
-            case 3:
-                command_button = (Button) findViewById(R.id.command_button_2);
-                command_button.setBackgroundColor(Color.MAGENTA);
-                break;
-            case 4:
-                command_button = (Button) findViewById(R.id.command_button_3);
-                command_button.setBackgroundColor(Color.LTGRAY);
-                break;
-            case 5:
-                command_button = (Button) findViewById(R.id.command_button_4);
-                command_button.setBackgroundColor(Color.GREEN);
-                break;
-            case 6:
-                command_button = (Button) findViewById(R.id.command_button_5);
-                command_button.setBackgroundColor(Color.CYAN);
-                break;
-            case 7:
-                command_button = (Button) findViewById(R.id.command_button_6);
-                command_button.setBackgroundColor(Color.BLUE);
-            case 8:
-                command_button = (Button) findViewById(R.id.command_button_7);
-                command_button.setBackgroundColor(Color.BLACK);
-            case 9:
-                command_button = (Button) findViewById(R.id.command_button_8);
-                command_button.setBackgroundColor(Color.GRAY);
-                break;
         }
     }
     public void displayLevel(){
@@ -620,6 +216,20 @@ public class Level extends AppCompatActivity {
         extraInfo.putInt("NUM_OF_COMMANDS", numOfCommands);
         i.putExtras(extraInfo);
         startActivity(i);
+    }
+    public void resetColorList(){
+        // Clear tileFrequency
+        tileFrequency = new HashMap<Integer, ArrayList<Integer>>();
+        // Clear commandList
+        commandList = new ArrayList<Integer>();
+        //Log.d("onCreate", "after " + tileFrequency.size() + " | " + commandList.size());
+        if(heapTree != null){
+            heapTree.reset();
+        }
+        heapTree = new HeapTree(numOfCommands);
+        //heapTree.updateSize(numOfCommands);
+
+
     }
 
 }

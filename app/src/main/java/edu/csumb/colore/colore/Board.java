@@ -14,6 +14,7 @@ public class Board extends AppCompatActivity {
     private Bundle extraInfo = new Bundle();
     private int CURRENT_LEVEL;
     private int NUM_OF_COMMANDS;
+    private HeapTree colorList;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -27,6 +28,8 @@ public class Board extends AppCompatActivity {
             CURRENT_LEVEL  = extras.getInt("CURRENT_LEVEL");
             NUM_OF_COMMANDS =  extras.getInt("NUM_OF_COMMANDS");
         }
+        colorList = new HeapTree(NUM_OF_COMMANDS);
+
         Log.d("onCreate", "CURRENT LEVEL (BOARD)"+ CURRENT_LEVEL +
         "NUM_OF_COMMANDS" + NUM_OF_COMMANDS);
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);

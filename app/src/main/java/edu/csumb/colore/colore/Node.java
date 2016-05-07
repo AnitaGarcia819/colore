@@ -1,5 +1,7 @@
 package edu.csumb.colore.colore;
 
+import android.util.Log;
+
 import java.util.Stack;
 
 /**
@@ -51,6 +53,8 @@ public class Node {
         this.color = color;
     }
     public String toString(){
-        return "Value: " + priorityValue + " Frequency: " + frequency + " Color(#): " + color + " /n";
+
+        return "Value: " + priorityValue + " Frequency: " + frequency + " Color(#): " + color +
+                " Stack Size: " + colors.size() +"/n" ;
     }
 }
