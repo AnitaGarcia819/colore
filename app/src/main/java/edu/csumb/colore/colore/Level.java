@@ -40,22 +40,29 @@ public class Level extends AppCompatActivity {
             numOfCommands = extras.getInt("NEW_COMMANDS");
         }
 
-        Log.d("onCreate", "CURRENT LEVEL: (LEVEL) " + currentLevel + " NUM OF COMMANDS: " + numOfCommands);
-        //Log.d("onCreate", "before " + tileFrequency.size() + " | " + commandList.size());
+        Log.d("onCreate", "CURRENT LEVEL: (LEVEL) " + currentLevel
+                + " NUM OF COMMANDS: " + numOfCommands
+                + "THRESHOLD: " + THRESHOLD);
 
-        // Clear tileFrequency
         tileFrequency = new HashMap<Integer, ArrayList<Integer>>();
         // Clear commandList
         commandList = new ArrayList<Integer>();
-        Log.d("onCreate", "after " + tileFrequency.size() + " | " + commandList.size());
+        //Log.d("onCreate", "after " + tileFrequency.size() + " | " + commandList.size());
 
         heapTree = new HeapTree(numOfCommands);
-        //heapTree.updateSize(numOfCommands);
-        Log.d("COMMANDS: " , String.valueOf(numOfCommands));
+        if(currentLevel == 1)
+            heapTree.initTree();
 
-        initializeCommandList();
+        Log.d("onCreate", "after " + tileFrequency.size() + " | " + commandList.size()
+                + " | " + commandList.size());
+
+
+        heapTree.add(2, 4, 2);
+
+
+        //initializeCommandList();
+        //displayCommandList();
         //TO DO: init Hashmap with default array list
-        heapTree.display();
     }
 
     public void startGame(View v) {
@@ -65,13 +72,21 @@ public class Level extends AppCompatActivity {
     }
 
     public void generateTileFrequency() {
+        int total = 0;
+        boolean keepLooking = false;
         if(tileFrequency.get(numOfCommands) == null){
             tileFrequency.put(numOfCommands, new ArrayList<Integer>());
         }
-        int tileFrequencyNumber = getRandomTileNumber();
-        for (int i = 0; i < numOfCommands; i++) {
-            while (tileFrequency.get(numOfCommands).contains(tileFrequencyNumber)) {
+        tileFrequency.get(numOfCommands).add(null);
+        int tileFrequencyNumber;
+
+        for (int i = 1; i <= numOfCommands; i++) {
+            tileFrequencyNumber = getRandomTileNumber();
+            total += tileFrequencyNumber;
+            while(total > 9){
+                total -= tileFrequencyNumber;
                 tileFrequencyNumber = getRandomTileNumber();
+                total += tileFrequencyNumber;
             }
             tileFrequency.get(numOfCommands).add(tileFrequencyNumber);
         }
@@ -83,21 +98,22 @@ public class Level extends AppCompatActivity {
 
         generateTileFrequency();
         // Select random color && select # of values
-
-        for(int i = 0; i < numOfCommands; i++){
+        commandList.add(null);
+        for(int i = 1; i <= numOfCommands; i++){
             color = getRandomColor();
             while(commandList.contains(color)){
                 color = getRandomColor();
             }
+           // Log.d("COLOR: ", i + " " + color);
+
             commandList.add(color);
-            Log.d("COMMAND ", " " + i + commandList.get(i));
+           // Log.d("COMMAND ", " " + i + commandList.get(i) + "SIZE: " + commandList.size());
            // color = getRandomColor();
             frequency = tileFrequency.get(numOfCommands).get(i);
-            Log.d("DATA", i + " " + frequency + " " + color);
-            heapTree.add(i, frequency, color);
+           // Log.d("DATA", i + " " + frequency + " " + color);
+            heapTree.add(i, color, frequency);
             displayColor(i, color);
         }
-
     }
     public int getRandomColor(){
         Random randomGenerator = new Random();
@@ -146,36 +162,48 @@ public class Level extends AppCompatActivity {
             case 9:
                 b.setBackgroundColor(Color.GRAY);
                 break;
+            default:
+                b.setBackgroundColor(Color.WHITE);
         }
     }
     public Button getButton(int button_position){
-
+        Button b = (Button) findViewById(R.id.command_button_4);
         switch(button_position){
-            case 0:
+            case 1:
                     return (Button) findViewById(R.id.command_button_0);
 
-            case 1:
+            case 2:
                     return (Button) findViewById(R.id.command_button_1);
 
-            case 2:
+            case 3:
                     return (Button) findViewById(R.id.command_button_2);
 
-            case 3:
+            case 4:
                     return (Button) findViewById(R.id.command_button_3);
 
-            case 4:
+            case 5:
+                    b = (Button) findViewById(R.id.command_button_4);
+                    b.setVisibility(View.VISIBLE);
                     return (Button) findViewById(R.id.command_button_4);
 
-            case 5:
+            case 6:
+                    b = (Button) findViewById(R.id.command_button_5);
+                    b.setVisibility(View.VISIBLE);
                     return (Button) findViewById(R.id.command_button_5);
 
-            case 6:
+            case 7:
+                    b = (Button) findViewById(R.id.command_button_6);
+                    b.setVisibility(View.VISIBLE);
                     return (Button) findViewById(R.id.command_button_6);
 
-            case 7:
+            case 8:
+                    b = (Button) findViewById(R.id.command_button_7);
+                    b.setVisibility(View.VISIBLE);
                     return (Button) findViewById(R.id.command_button_7);
 
-            case 8:
+            case 9:
+                    b = (Button) findViewById(R.id.command_button_8);
+                    b.setVisibility(View.VISIBLE);
                     return (Button) findViewById(R.id.command_button_8);
 
             default:
@@ -191,4 +219,18 @@ public class Level extends AppCompatActivity {
         this.currentLevel = newLevel;
     }
 
+    public void resetColorList(){
+        // Clear tileFrequency
+        tileFrequency = new HashMap<Integer, ArrayList<Integer>>();
+        // Clear commandList
+        commandList = new ArrayList<Integer>();
+        //Log.d("onCreate", "after " + tileFrequency.size() + " | " + commandList.size());
+        if(heapTree != null){
+            heapTree.reset();
+        }
+        heapTree = new HeapTree(numOfCommands);
+        //heapTree.updateSize(numOfCommands);
+
+
+    }
 }

@@ -24,7 +24,6 @@ import java.util.Random;
 import java.util.StringTokenizer;
 
 public class Board extends AppCompatActivity {
-    HeapTree colorList;
     ArrayList<Integer> used = new ArrayList<>();
     ArrayList<Integer> board = new ArrayList<>();
     //HashMap<String, ArrayList<Integer>> map = new HashMap<>();
@@ -36,6 +35,7 @@ public class Board extends AppCompatActivity {
     private int CURRENT_LEVEL;
     private int NUM_OF_COMMANDS;
 
+    private HeapTree colorList;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -49,6 +49,8 @@ public class Board extends AppCompatActivity {
             CURRENT_LEVEL  = extras.getInt("CURRENT_LEVEL");
             NUM_OF_COMMANDS =  extras.getInt("NUM_OF_COMMANDS");
         }
+        colorList = new HeapTree(NUM_OF_COMMANDS);
+
         Log.d("onCreate", "CURRENT LEVEL (BOARD)"+ CURRENT_LEVEL +
         "NUM_OF_COMMANDS" + NUM_OF_COMMANDS);
         colorList = new HeapTree(NUM_OF_COMMANDS);
@@ -56,6 +58,11 @@ public class Board extends AppCompatActivity {
 
         Log.d("DISPLAY: HEAP", "HEAP");
         colorList.display();
+
+        for(int i =1 ; i < colorList.getHeap().size(); i++) {
+            Log.d("ValuesHEAP: ", "COLOR: " + String.valueOf(colorList.getHeap().get(i).getColor()));
+        }
+
 
        Log.d("COLOR_LIST:" , String.valueOf(colorList));
         Log.d("NUM_COMMANDS: " , String.valueOf(NUM_OF_COMMANDS));
