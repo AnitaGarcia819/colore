@@ -85,12 +85,12 @@ public class Board extends AppCompatActivity {
         }
 
         for(int i =0 ; i < HeapTree.heap.size(); i++) {
-            Log.d("Heap values: " , String.valueOf(HeapTree.heap.get(i)));
+            Log.d("Heap values: ", String.valueOf(HeapTree.heap.get(i)));
         }
 
         Log.d("HEAP: " , String.valueOf(HeapTree.heap.get(1).getFrequency()));
         int position;
-        for(int node = 0; node < HeapTree.heap.size(); node++) {
+        for(int node = 1; node < HeapTree.heap.size(); node++) {
             for(int numTimes = 0; numTimes < HeapTree.heap.get(node).getFrequency(); numTimes++) {
                 position = getRandomNum();
 
@@ -122,6 +122,7 @@ public class Board extends AppCompatActivity {
     }
 
     public void buttonColor(Button b, int color){
+        Log.d("buttonColor", "color: " + color );
             switch (color) {
                 case 1:
                     b.setBackgroundColor(Color.YELLOW);
@@ -151,12 +152,13 @@ public class Board extends AppCompatActivity {
                     b.setBackgroundColor(Color.GRAY);
                     break;
                 default:
-                    b.getBackground().setColorFilter(Color.WHITE, PorterDuff.Mode.MULTIPLY);
+                    //b.getBackground().setColorFilter(Color.WHITE, PorterDuff.Mode.MULTIPLY);
                     break;
             }
         }
 
     public void addButton(int position, int color) {
+        Log.d("addButton", "position "+ position + "color " + color);
         Button b;
         switch (position) {
             case 1:
@@ -193,6 +195,7 @@ public class Board extends AppCompatActivity {
             case 9:
                 b = (Button)findViewById(R.id.button9);
                 buttonColor(b, color);
+                break;
             default:
                 break;
         }
@@ -207,10 +210,10 @@ public class Board extends AppCompatActivity {
         int position = 0;
         switch (v.getId()) {
             case R.id.button1:
-                if (isMax(1)) {
-                    b = (Button) findViewById(R.id.button1);
+                b = (Button) findViewById(R.id.button1);
+                position = 1;
+                if(isMax(1))
                     b.setBackgroundColor(Color.WHITE);
-                } else gameOver();
                 break;
             case R.id.button2:
                 b = (Button) findViewById(R.id.button2);
@@ -253,6 +256,7 @@ public class Board extends AppCompatActivity {
                 position = 8;
                 if(isMax(8))
                     b.setBackgroundColor(Color.WHITE);
+                break;
             case R.id.button9:
                 b = (Button) findViewById(R.id.button9);
                 position = 9;
@@ -304,7 +308,7 @@ public class Board extends AppCompatActivity {
         }
         else{
             // Game over
-            gameOver();
+            //gameOver();
         }
         return false;
     }
