@@ -24,14 +24,14 @@ public class GameOver extends AppCompatActivity {
             Log.d("Game Level: " , gameLevel);
         }
         setLevel();
-
     }
-
     public void setLevel() {
         TextView t = (TextView) findViewById(R.id.level_text);
         t.setText("LEVEL: " + gameLevel);
     }
     public void playAgain(View v){
-
+        Intent i = new Intent(getBaseContext(), Level.class);
+        startActivity(i);
+        finish();
     }
 }
