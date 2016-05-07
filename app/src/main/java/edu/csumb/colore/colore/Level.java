@@ -45,6 +45,8 @@ public class Level extends AppCompatActivity {
                 + " NUM OF COMMANDS: " + numOfCommands
                 + "THRESHOLD: " + THRESHOLD);
 
+
+        Log.d("LEVEL: " , currentLevel + " ");
         tileFrequency = new HashMap<Integer, ArrayList<Integer>>();
         // Clear commandList
         commandList = new ArrayList<Integer>();
@@ -63,7 +65,12 @@ public class Level extends AppCompatActivity {
     }
 
     public void startGame(View v) {
+        Bundle b = new Bundle();
+        b.putInt("CURRENT_LEVEL", currentLevel);
+        b.putInt("NUM_OF_COMMANDS", numOfCommands);
+
         Intent intent = new Intent(this, Board.class);
+        intent.putExtras(b);
         startActivity(intent);
         finish();
     }

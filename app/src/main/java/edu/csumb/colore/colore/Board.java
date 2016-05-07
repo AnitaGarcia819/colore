@@ -83,6 +83,9 @@ public class Board extends AppCompatActivity {
             board.add(0);
         }
 
+        for(int i =0 ; i < HeapTree.heap.size(); i++) {
+            Log.d("Heap values: " , String.valueOf(HeapTree.heap.get(i)));
+        }
 
         Log.d("HEAP: " , String.valueOf(HeapTree.heap.get(1).getFrequency()));
         int position;
@@ -203,49 +206,97 @@ public class Board extends AppCompatActivity {
         int position = 0;
         switch (v.getId()) {
             case R.id.button1:
-                b = (Button) findViewById(R.id.button1);
-                position = 1;
-                if(isMax(1))
+                if (isMax(1)) {
+                    b = (Button) findViewById(R.id.button1);
                     b.setBackgroundColor(Color.WHITE);
-
+                } else gameOver();
                 break;
             case R.id.button2:
-                b = (Button) findViewById(R.id.button2);
-                b.setBackgroundColor(Color.WHITE);
+                if (isMax(2)) {
+                    b = (Button) findViewById(R.id.button2);
+                    b.setBackgroundColor(Color.WHITE);
+                }
+                else {
+                    gameOver();
+                }
                 break;
             case R.id.button3:
-                b = (Button) findViewById(R.id.button3);
-                b.setBackgroundColor(Color.WHITE);
+                if(isMax(3)) {
+                    b = (Button) findViewById(R.id.button3);
+                    b.setBackgroundColor(Color.WHITE);
+                }
+                else {
+                    gameOver();
+                }
                 break;
             case R.id.button4:
-                b = (Button) findViewById(R.id.button4);
-                b.setBackgroundColor(Color.WHITE);
+                if (isMax(4)) {
+                    b = (Button) findViewById(R.id.button4);
+                    b.setBackgroundColor(Color.WHITE);
+                } else {
+                    gameOver();
+                }
                 break;
             case R.id.button5:
-                b = (Button) findViewById(R.id.button5);
-                b.setBackgroundColor(Color.WHITE);
+                if(isMax(5)) {
+                    b = (Button) findViewById(R.id.button5);
+                    b.setBackgroundColor(Color.WHITE);
+                } else {
+                    gameOver();
+                }
                 break;
             case R.id.button6:
-                b = (Button) findViewById(R.id.button6);
-                b.setBackgroundColor(Color.WHITE);
+                if(isMax(6)) {
+                    b = (Button) findViewById(R.id.button6);
+                    b.setBackgroundColor(Color.WHITE);
+                } else {
+                    gameOver();
+                }
                 break;
             case R.id.button7:
-                b = (Button) findViewById(R.id.button7);
-                b.setBackgroundColor(Color.WHITE);
+                if(isMax(7)) {
+                    b = (Button) findViewById(R.id.button7);
+                    b.setBackgroundColor(Color.WHITE);
+                } else {
+                    gameOver();
+                }
                 break;
             case R.id.button8:
-                b = (Button) findViewById(R.id.button8);
-                b.setBackgroundColor(Color.WHITE);
+                if(isMax(8)) {
+                    b = (Button) findViewById(R.id.button8);
+                    b.setBackgroundColor(Color.WHITE);
+                } else {
+                    gameOver();
+                }
             case R.id.button9:
-                b = (Button) findViewById(R.id.button9);
-                b.setBackgroundColor(Color.WHITE);
+                if(isMax(9)) {
+                    b = (Button) findViewById(R.id.button9);
+                    b.setBackgroundColor(Color.WHITE);
+                } else {
+                    gameOver();
+                }
                 break;
             default:
                 break;
         }
     }
+
+    public void gameOver() {
+        Bundle stage = new Bundle();
+        stage.putString("level", String.valueOf(CURRENT_LEVEL));
+        Log.d("LEVEL: " , String.valueOf(CURRENT_LEVEL));
+        Intent intent = new Intent(this, GameOver.class);
+        intent.putExtras(stage);
+        startActivity(intent);
+        finish();
+    }
     public boolean isMax(int position){
-        if(HeapTree.heap.get(0).getColor() == board.get(position)){
+        Log.d("HEAP_MAX_COLOR: " , String.valueOf(HeapTree.heap.get(1).getColor()));
+        Log.d("HEAP_POSITION: " , String.valueOf(board.get(position)));
+        Log.d("HEAP_USED: " , String.valueOf(used.get(position)));
+
+        if(HeapTree.heap.get(1).getColor() == used.get(position)){
+            Log.d("SAME!", String.valueOf(HeapTree.heap.get(1).getColor() + String.valueOf(used.get(position))));
             return  true;
         }
         return false;

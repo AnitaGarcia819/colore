@@ -1,13 +1,32 @@
 package edu.csumb.colore.colore;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
+import android.widget.TextView;
+import android.widget.Toast;
 
 public class GameOver extends AppCompatActivity {
 
+    String gameLevel;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game_over);
+        Intent intentExtras = getIntent();
+        Bundle extras = intentExtras.getExtras();
+
+        if(!extras.isEmpty()) {
+            gameLevel = extras.getString("level");
+            Log.d("Game Level: " , gameLevel);
+        }
+        setLevel();
+
+    }
+
+    public void setLevel() {
+        TextView t = (TextView) findViewById(R.id.level_text);
+        t.setText("LEVEL: " + gameLevel);
     }
 }
