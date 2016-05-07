@@ -26,7 +26,8 @@ public class Level extends AppCompatActivity {
   //  private ArrayList<String> colorList = new ArrayList<String>();
     private HashMap<Integer, ArrayList<Integer>> tileFrequency;
 
-
+    private int TOTAL = 0; // total #of tiles used
+    private int USED = 0;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         Log.d("onCreate", "called");
@@ -60,8 +61,14 @@ public class Level extends AppCompatActivity {
 
 
     }
-    public void generateTileFrequency() {
-        int total = 0;
+    public int generateTileFrequency() {
+        int NEWTHRESHOLD = getNewTileThreshold(THRESHOLD);
+        int randomTileFrequency = getRandomTileNumber(NEWTHRESHOLD);
+        TOTAL += NEWTHRESHOLD;
+        USED++;
+        return NEWTHRESHOLD;
+
+       /* int total = 0;
         boolean keepLooking = false;
         if(tileFrequency.get(numOfCommands) == null){
             tileFrequency.put(numOfCommands, new ArrayList<Integer>());
@@ -78,14 +85,17 @@ public class Level extends AppCompatActivity {
                 total += tileFrequencyNumber;
             }
             tileFrequency.get(numOfCommands).add(tileFrequencyNumber);
-        }
+        }*/
+    }
+    public int getNewTileThreshold(int THRESHOLD){
+        return (NUM_TILES - TOTAL) - (numOfCommands - (USED + 1));
     }
     public void initializeCommandList(){
         int color;
         int priorityValue;
         int frequency;
 
-        generateTileFrequency();
+       // generateTileFrequency();
         // Select random color && select # of values
         commandList.add(null);
         for(int i = 1; i <= numOfCommands; i++){
@@ -98,8 +108,10 @@ public class Level extends AppCompatActivity {
             commandList.add(color);
            // Log.d("COMMAND ", " " + i + commandList.get(i) + "SIZE: " + commandList.size());
            // color = getRandomColor();
-            frequency = tileFrequency.get(numOfCommands).get(i);
-           // Log.d("DATA", i + " " + frequency + " " + color);
+            frequency = generateTileFrequency();
+            Log.d("getNewTileThresh (used)", " "+ USED + " ?= " + commandList.size());
+
+            // Log.d("DATA", i + " " + frequency + " " + color);
             heapTree.add(i, color, frequency);
             displayColor(i, color);
         }
@@ -113,7 +125,7 @@ public class Level extends AppCompatActivity {
         Random randomGenerator = new Random();
         return randomGenerator.nextInt(NUM_TILES + 1);// 0 - 9
     }
-    public int getRandomTileNumber(){
+    public int getRandomTileNumber(int THRESHOLD){
         Random randomGenerator = new Random();
         return randomGenerator.nextInt(THRESHOLD) + 1; //  1 - threshold
     }
