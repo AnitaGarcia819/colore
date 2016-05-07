@@ -30,13 +30,22 @@ import java.util.*;
 
 public class HeapTree {
 
-    private static ArrayList<Node> heap = new ArrayList<Node>();
+    public static ArrayList<Node> heap = new ArrayList<Node>();
     private static int SIZE = 0;
     private static int numOfCommands = 0;
     public HeapTree(int numOfNodes){
         numOfCommands = numOfNodes;
-        heap.add(new Node());
+        //heap.add(new Node());
 
+
+    }
+    public void initTree(){
+
+        heap.add(new Node());
+    }
+
+    public ArrayList<Node> getHeap() {
+        return heap;
     }
 
     public static boolean isHeap(){
@@ -135,6 +144,7 @@ public class HeapTree {
             }// Ends for loop
         }// Ends while loop
     }
+
 
     public static void add(int priorityVaule, int color, int frequency){
         Log.d("SIZE(under the hood): ", " " + SIZE);

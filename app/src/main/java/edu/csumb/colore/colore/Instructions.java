@@ -54,5 +54,6 @@ public class Instructions extends AppCompatActivity {
     public void startLevel(View v){
         Intent i = new Intent(getBaseContext(), Level.class);
         startActivity(i);
+        finish();
     }
 }

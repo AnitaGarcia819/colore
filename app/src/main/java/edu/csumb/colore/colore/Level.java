@@ -51,16 +51,23 @@ public class Level extends AppCompatActivity {
         //Log.d("onCreate", "after " + tileFrequency.size() + " | " + commandList.size());
 
         heapTree = new HeapTree(numOfCommands);
-        //heapTree.updateSize(numOfCommands);
+        if(currentLevel == 1)
+            heapTree.initTree();
+
         Log.d("onCreate", "after " + tileFrequency.size() + " | " + commandList.size()
                 + " | " + commandList.size());
 
         initializeCommandList();
         //displayCommandList();
         //TO DO: init Hashmap with default array list
-
-
     }
+
+    public void startGame(View v) {
+        Intent intent = new Intent(this, Board.class);
+        startActivity(intent);
+        finish();
+    }
+
     public int generateTileFrequency() {
         int NEWTHRESHOLD = getNewTileThreshold(THRESHOLD);
         int randomTileFrequency = getRandomTileNumber(NEWTHRESHOLD);
@@ -115,7 +122,6 @@ public class Level extends AppCompatActivity {
             heapTree.add(i, color, frequency);
             displayColor(i, color);
         }
-        heapTree.display();
     }
     public int getRandomColor(){
         Random randomGenerator = new Random();
@@ -181,6 +187,8 @@ public class Level extends AppCompatActivity {
                     return (Button) findViewById(R.id.command_button_2);
 
             case 4:
+                     b = (Button) findViewById(R.id.command_button_3);
+                     b.setVisibility(View.VISIBLE);
                     return (Button) findViewById(R.id.command_button_3);
 
             case 5:
@@ -212,6 +220,7 @@ public class Level extends AppCompatActivity {
                 return null;
         }
     }
+
     public void displayLevel(){
         TextView levelTextView = (TextView) findViewById(R.id.level_text);
         levelTextView.setText("Level: " + currentLevel);
@@ -220,15 +229,6 @@ public class Level extends AppCompatActivity {
         this.currentLevel = newLevel;
     }
 
-    public void startGame(View v){
-        Intent i = new Intent(getBaseContext(), Board.class);
-        // Sends data to Board Activity
-        extraInfo = new Bundle();
-        extraInfo.putInt("CURRENT_LEVEL", currentLevel);
-        extraInfo.putInt("NUM_OF_COMMANDS", numOfCommands);
-        i.putExtras(extraInfo);
-        startActivity(i);
-    }
     public void resetColorList(){
         // Clear tileFrequency
         tileFrequency = new HashMap<Integer, ArrayList<Integer>>();
@@ -243,5 +243,4 @@ public class Level extends AppCompatActivity {
 
 
     }
-
 }

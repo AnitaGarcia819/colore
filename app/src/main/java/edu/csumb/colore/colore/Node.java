@@ -11,6 +11,7 @@ public class Node {
     private int priorityValue;
     private int frequency;
     private int color;
+
     private Stack<Integer> colors;
 
     public Node(){
@@ -43,6 +44,7 @@ public class Node {
     public int getFrequency(){
         return frequency;
     }
+    public int getColor() {return color;}
     public void setPriorityValue(int priorityValue){
         this.priorityValue = priorityValue;
     }
