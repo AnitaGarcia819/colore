@@ -159,6 +159,7 @@ public class HeapTree {
         Log.d("add (success)", "===================");
 
         heapify();
+        // display color
         display();
         Log.d("add (afterHeapify)"," "+ heap.get(SIZE) );
 

@@ -34,6 +34,7 @@ public class Board extends AppCompatActivity {
     private Bundle extraInfo = new Bundle();
     private int CURRENT_LEVEL;
     private int NUM_OF_COMMANDS;
+    private int POINTS = 0;
 
     private HeapTree colorList;
     @Override
@@ -211,42 +212,87 @@ public class Board extends AppCompatActivity {
                 break;
             case R.id.button2:
                 b = (Button) findViewById(R.id.button2);
-                b.setBackgroundColor(Color.WHITE);
+                position = 2;
+                if(isMax(2))
+                    b.setBackgroundColor(Color.WHITE);
                 break;
             case R.id.button3:
                 b = (Button) findViewById(R.id.button3);
-                b.setBackgroundColor(Color.WHITE);
+                position = 3;
+                if(isMax(3))
+                    b.setBackgroundColor(Color.WHITE);
                 break;
             case R.id.button4:
                 b = (Button) findViewById(R.id.button4);
-                b.setBackgroundColor(Color.WHITE);
+                position = 4;
+                if(isMax(4))
+                    b.setBackgroundColor(Color.WHITE);
                 break;
             case R.id.button5:
                 b = (Button) findViewById(R.id.button5);
-                b.setBackgroundColor(Color.WHITE);
+                position = 5;
+                if(isMax(5))
+                    b.setBackgroundColor(Color.WHITE);
                 break;
             case R.id.button6:
                 b = (Button) findViewById(R.id.button6);
-                b.setBackgroundColor(Color.WHITE);
+                position = 6;
+                if(isMax(6))
+                    b.setBackgroundColor(Color.WHITE);
                 break;
             case R.id.button7:
                 b = (Button) findViewById(R.id.button7);
-                b.setBackgroundColor(Color.WHITE);
+                position = 7;
+                if(isMax(7))
+                    b.setBackgroundColor(Color.WHITE);
                 break;
             case R.id.button8:
                 b = (Button) findViewById(R.id.button8);
-                b.setBackgroundColor(Color.WHITE);
+                position = 8;
+                if(isMax(8))
+                    b.setBackgroundColor(Color.WHITE);
             case R.id.button9:
                 b = (Button) findViewById(R.id.button9);
-                b.setBackgroundColor(Color.WHITE);
+                position = 9;
+                if(isMax(9))
+                    b.setBackgroundColor(Color.WHITE);
                 break;
             default:
                 break;
         }
     }
     public boolean isMax(int position){
-        if(HeapTree.heap.get(0).getColor() == board.get(position)){
+        Log.d("isMax(position)",position +" ");
+
+        Log.d("isMax"," THE CORRECT COLOR: " +HeapTree.heap.get(1).getColor()+" ==  THE POSITION COLOR: "+ board.get(position) );
+        if(HeapTree.heap.get(1).getColor() == board.get(position)){
+            Log.d("isMax(position)","YES!");
+
+            // Pop frequency from max
+            HeapTree.heap.get(1).deleteColor();
+            Log.d("idMax(freq--",HeapTree.heap.get(1).getStackSize()+"");
+            // Increase Score
+            POINTS++;
+            // If Frequecy == 0 --> delete node
+            if(HeapTree.heap.get(1).getStackSize() == 0){
+                HeapTree.deleteMax();
+                Log.d("isMax(position)", "DELETED MAX");
+                Log.d("isMax(position)", "NEW HEAP TREE SIZE " + HeapTree.heap.size());
+            }
+
+
+            // If game over
+            if(HeapTree.heap.size() == 1){
+                gameOver();
+                Log.d("isMax(position)",position +" ");
+            }
+
+
             return  true;
+        }
+        else{
+            // Game over
+            gameOver();
         }
         return false;
     }

@@ -110,17 +110,23 @@ public class Level extends AppCompatActivity {
             while(commandList.contains(color)){
                 color = getRandomColor();
             }
-           // Log.d("COLOR: ", i + " " + color);
+            Log.d("COLOR: ", i + " " + color);
 
             commandList.add(color);
            // Log.d("COMMAND ", " " + i + commandList.get(i) + "SIZE: " + commandList.size());
            // color = getRandomColor();
             frequency = generateTileFrequency();
-            Log.d("getNewTileThresh (used)", " "+ USED + " ?= " + commandList.size());
+            //Log.d("getNewTileThresh (used)", " "+ USED + " ?= " + commandList.size());
 
-            // Log.d("DATA", i + " " + frequency + " " + color);
+             Log.d("DATA", i + " " + frequency + " " + color);
             heapTree.add(i, color, frequency);
-            displayColor(i, color);
+
+        }
+        displayPriorityList();
+    }
+    public void displayPriorityList(){
+        for(int i = 1; i <= numOfCommands; i++){
+            displayColor(i,HeapTree.heap.get(i).getColor());
         }
     }
     public int getRandomColor(){

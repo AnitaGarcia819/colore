@@ -16,8 +16,6 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="@android:color/holo_orange_light"
-            android:layout_weight="1.0"
-            android:text="Button"
             android:onClick="buttonPressed" />
 
         <Button
@@ -26,7 +24,6 @@
             android:layout_height="match_parent"
             android:background="@android:color/holo_green_light"
             android:layout_weight="1.0"
-            android:text="Button"
             android:onClick="buttonPressed" />
         <Button
             android:id="@+id/button3"
@@ -34,7 +31,6 @@
             android:layout_height="match_parent"
             android:background="@android:color/holo_red_light"
             android:layout_weight="1.0"
-            android:text="Button"
             android:onClick="buttonPressed" />
 
     </LinearLayout>
@@ -51,7 +47,6 @@
             android:layout_height="match_parent"
             android:background="@android:color/holo_blue_light"
             android:layout_weight="1.0"
-            android:text="Button"
             android:onClick="buttonPressed" />
 
         <Button
@@ -60,7 +55,7 @@
             android:layout_height="match_parent"
             android:background="@android:color/holo_purple"
             android:layout_weight="1.0"
-            android:text="Button"
+
             android:onClick="buttonPressed" />
         <Button
             android:id="@+id/button6"
@@ -68,7 +63,7 @@
             android:layout_height="match_parent"
             android:background="@android:color/white"
             android:layout_weight="1.0"
-            android:text="Button"
+
             android:onClick="buttonPressed" />
 
     </LinearLayout>
@@ -85,7 +80,7 @@
             android:layout_height="match_parent"
             android:background="@android:color/background_dark"
             android:layout_weight="1.0"
-            android:text="Button"
+
             android:onClick="buttonPressed" />
 
         <Button
@@ -94,7 +89,7 @@
             android:layout_height="match_parent"
             android:background="@android:color/darker_gray"
             android:layout_weight="1.0"
-            android:text="Button"
+
             android:onClick="buttonPressed" />
         <Button
             android:id="@+id/button9"
@@ -102,7 +97,7 @@
             android:layout_height="match_parent"
             android:background="@android:color/transparent"
             android:layout_weight="1.0"
-            android:text="Button"
+
             android:onClick="buttonPressed" />
 
     </LinearLayout>

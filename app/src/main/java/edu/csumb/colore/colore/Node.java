@@ -29,7 +29,7 @@ public class Node {
     public void addColor(int color){
         colors.push(color);
     }
-    public void deleteColor(int color){
+    public void deleteColor(){
         if(!colors.isEmpty())
             colors.pop();
     }
@@ -44,6 +44,9 @@ public class Node {
     public int getFrequency(){
         return frequency;
     }
+    public int getStackSize(){
+        return colors.size();
+    }
     public int getColor() {return color;}
     public void setPriorityValue(int priorityValue){
         this.priorityValue = priorityValue;
@@ -54,9 +57,13 @@ public class Node {
     public void setColor(int color){
         this.color = color;
     }
+    public boolean isStackEmpty(){
+        return colors.isEmpty();
+    }
     public String toString(){
 
         return "Value: " + priorityValue + " Frequency: " + frequency + " Color(#): " + color +
                 " Stack Size: " + colors.size() +"/n" ;
     }
+
 }
