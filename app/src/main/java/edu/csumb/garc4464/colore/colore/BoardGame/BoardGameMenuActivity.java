@@ -2,10 +2,11 @@ package edu.csumb.garc4464.colore.colore.BoardGame;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.MenuItem;
 
 import edu.csumb.garc4464.colore.R;
 
-public class BoardGameActivity extends AppCompatActivity {
+public class BoardGameMenuActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
