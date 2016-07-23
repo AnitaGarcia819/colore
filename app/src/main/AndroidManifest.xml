@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="edu.csumb.colore.colore">
+    package="edu.csumb.garc4464.colore">
 
     <application
         android:allowBackup="true"
@@ -8,37 +8,17 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity
-            android:name=".Instructions"
-            android:configChanges="keyboardHidden|orientation|screenSize"
-            android:label="@string/app_name"
-            android:screenOrientation="portrait"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
-        <activity
-            android:name=".Level"
-            android:configChanges="keyboardHidden|orientation|screenSize"
-            android:label="@string/title_activity_level"
-            android:screenOrientation="portrait"
-            android:theme="@style/AppTheme.NoActionBar" />
-        <activity
-            android:name=".Board"
-            android:configChanges="keyboardHidden|orientation|screenSize"
-            android:label="@string/title_activity_board"
-            android:screenOrientation="portrait"
-            android:theme="@style/AppTheme.NoActionBar" />
-        <activity
-            android:name=".Splash"
-            android:configChanges="keyboardHidden|orientation|screenSize"
-            android:label="@string/title_activity_splash"
-            android:screenOrientation="portrait"
-            android:theme="@style/SplashTheme">
+        <activity android:name=".colore.BoardGame.BoardGameActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".GameOver"></activity>
+        <activity android:name=".colore.GameOver.GameOverActivity" />
+        <activity android:name=".colore.GameWon.GameWonActivity" />
+        <activity android:name=".colore.ColoreInstructions.ColoreInstructionsActivity" />
+        <activity android:name=".colore.LevelScreen.LevelScreenActivity"></activity>
     </application>
 
 </manifest>

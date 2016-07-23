@@ -1,2 +1,2 @@
 # colore
-Children's Android Mobile Application
+Children's mobile application for Android devices
