@@ -1,8 +1,7 @@
-package edu.csumb.garc4464.colore.colore.BoardGame;
+package edu.csumb.garc4464.colore.colore.BoardGameMenu;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.view.MenuItem;
 
 import edu.csumb.garc4464.colore.R;
 

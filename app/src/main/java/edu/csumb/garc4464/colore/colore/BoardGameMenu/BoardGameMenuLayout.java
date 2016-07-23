@@ -1,4 +1,4 @@
-package edu.csumb.garc4464.colore.colore.BoardGame;
+package edu.csumb.garc4464.colore.colore.BoardGameMenu;
 
 /**
  * Created by anitagarcia on 7/23/16.
