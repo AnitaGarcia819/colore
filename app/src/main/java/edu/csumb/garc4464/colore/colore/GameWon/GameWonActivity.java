@@ -3,6 +3,8 @@ package edu.csumb.garc4464.colore.colore.GameWon;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
+import edu.csumb.garc4464.colore.R;
+
 public class GameWonActivity extends AppCompatActivity {
 
     @Override
