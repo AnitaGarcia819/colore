@@ -25,15 +25,13 @@ public class BoardGameMenuLogic extends Application {
 
     public BoardGameMenuLogic(@NonNull AppCompatActivity appCompatActivity, @Nullable BoardGameMenuComponent component) {
         if (component == null) {
-            component = Dagger_VehicleComponent.builder().vehicleModule(
-                    new BoardGameMenuModule(appCompatActivity)).build();
+            component = DaggerBoardGameMenuLogic_BoardGameMenuComponent.builder()
+                    .boardGameMenuModule(new BoardGameMenuModule())
+                    .build();
         }
-        component.inject(this);
     }
 
-    @Singleton
-    @Component(modules = {BoardGameMenuLayout.class})
-    @Module
+    @Component(modules = {BoardGameMenuModule.class})
     interface BoardGameMenuComponent {
         void inject(BoardGameMenuLogic boardGameMenuLogic);
     }
@@ -41,11 +39,9 @@ public class BoardGameMenuLogic extends Application {
     @SuppressWarnings("unused")
     @Module
     static class BoardGameMenuModule {
-        @NonNull AppCompatActivity mAppCompatActivity;
-        @NonNull BoardGameMenuLayout mBoardGameMenuLayout;
 
-        public BoardGameMenuModule(@NonNull AppCompatActivity appCompatActivity) {
-            mAppCompatActivity = appCompatActivity;
+        public BoardGameMenuModule() {
+
         }
 
         @NonNull
