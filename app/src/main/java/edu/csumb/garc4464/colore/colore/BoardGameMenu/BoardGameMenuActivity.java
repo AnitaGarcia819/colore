@@ -1,22 +1,10 @@
 package edu.csumb.garc4464.colore.colore.BoardGameMenu;
 
 import android.app.Activity;
-import android.app.AlertDialog;
-import android.content.Context;
-import android.support.annotation.NonNull;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.view.View;
-import android.widget.Toast;
 
-import javax.inject.Inject;
-
-import butterknife.ButterKnife;
-import butterknife.OnClick;
-import dagger.Component;
-import dagger.Module;
-import dagger.Provides;
 import edu.csumb.garc4464.colore.R;
+import edu.csumb.garc4464.colore.colore.OptionsMenu.OptionsMenuDialog;
 
 public class BoardGameMenuActivity extends Activity {
 

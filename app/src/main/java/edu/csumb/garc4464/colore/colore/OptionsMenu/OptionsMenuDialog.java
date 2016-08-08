@@ -1,11 +1,13 @@
-package edu.csumb.garc4464.colore.colore.BoardGameMenu;
+package edu.csumb.garc4464.colore.colore.OptionsMenu;
 
 import android.app.AlertDialog;
 import android.content.Context;
-import android.text.Layout;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Toast;
+
+import javax.inject.Inject;
 
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -24,7 +26,7 @@ public class OptionsMenuDialog extends AlertDialog {
         ButterKnife.bind(this, view);
     }
 
-    static OptionsMenuDialog create(Context context) {
+    public static OptionsMenuDialog create(Context context) {
         OptionsMenuDialog optionsMenuDialog = new OptionsMenuDialog(context);
         optionsMenuDialog.setCanceledOnTouchOutside(false);
         return optionsMenuDialog;
@@ -33,5 +35,12 @@ public class OptionsMenuDialog extends AlertDialog {
     @OnClick(R.id.new_game)
     public void onNewGame() {
         Toast.makeText(getContext(), "TEST", Toast.LENGTH_SHORT).show();
+    }
+
+    @OnClick(R.id.help)
+    public void onHelpClicked() {
+        HelpDialog helpDialog = new HelpDialog(getContext());
+        helpDialog.setCanceledOnTouchOutside(false);
+        helpDialog.show();
     }
 }
