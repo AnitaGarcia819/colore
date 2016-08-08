@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.Toast;
 
 import javax.inject.Inject;
@@ -41,6 +42,11 @@ public class OptionsMenuDialog extends AlertDialog {
     public void onHelpClicked() {
         HelpDialog helpDialog = new HelpDialog(getContext());
         helpDialog.setCanceledOnTouchOutside(false);
+        WindowManager.LayoutParams lp = new WindowManager.LayoutParams();
+        lp.copyFrom(helpDialog.getWindow().getAttributes());
+        lp.width = WindowManager.LayoutParams.MATCH_PARENT;
+        lp.height = WindowManager.LayoutParams.MATCH_PARENT;
         helpDialog.show();
+        helpDialog.getWindow().setAttributes(lp);
     }
 }
