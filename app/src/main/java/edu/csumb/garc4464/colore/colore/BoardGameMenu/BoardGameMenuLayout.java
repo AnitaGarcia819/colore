@@ -26,12 +26,6 @@ public class BoardGameMenuLayout extends FrameLayout {
 
     }
 
-    @OnClick(R.id.new_game)
-    public void onNewGameClick() {
-        Toast.makeText(getContext(), "test", Toast.LENGTH_SHORT).show();
-        mListener.onNewGameClicked();
-    }
-
     interface Listener {
         void onNewGameClicked();
     }
